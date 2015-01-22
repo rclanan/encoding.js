@@ -4,15 +4,15 @@ define('singleCodeCompareBase', [], function() {
 
   function buildBaseCompare(compareDefinition) {
     return function (given) {
-      var decoded, result, code;
+      var translated, result, code;
 
-      code = compareDefinition.codePrefix + given[compareDefinition.codeName] + ';';
-      decoded = given.encoding.html.decode(code);
+      code = compareDefinition.codePrefix + given[compareDefinition.codeName] + compareDefinition.codePostfix;
+      translated = given.encoding.html[compareDefinition.translateFunctionName](code);
 
-      result = compareDefinition.compareDecode({
+      result = compareDefinition.compareTranslated({
         actual: code,
         expectedDefinition: given.expectedCharacter,
-        translated: decoded
+        translated: translated
       });
 
       return result;

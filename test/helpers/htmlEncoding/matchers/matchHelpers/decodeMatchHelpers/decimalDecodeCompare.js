@@ -3,6 +3,8 @@ define('decimalDecodeCompare', ['codeCompareBase'], function(codeCompareBase) {
 
   return codeCompareBase.buildCompareObject({
     codePrefix: '&#',
-    codeName: 'decimalCode'
+    codePostfix: ';',
+    codeName: 'decimalCode',
+    translateFunctionName: 'decode'
   });
 });

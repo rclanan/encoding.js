@@ -7,10 +7,6 @@ define([
   function(correctlyEncodedMatcher, correctlyDecodedMatcher, encoding, xssDefinitions) {
     'use strict';
 
-    function getMixedText(textToMixIn) {
-      return 'sntaoheu' + textToMixIn + ' aoesuhh';
-    }
-
     describe("Encoding XSS Specific Character Tests", function(){
 
       beforeEach(function() {
@@ -21,21 +17,19 @@ define([
       });
 
 
-      xssDefinitions.forEach(function(chararcterDefinition){
-        var character = String.fromCharCode(chararcterDefinition.decimalCode);
-        var encodedChar = '&' + chararcterDefinition.names[0] + ';';
+      xssDefinitions.forEach(function(characterDefinition){
+        var character = String.fromCharCode(characterDefinition.decimalCode);
 
         it("should correctly encode '" + character + "'", function() {
-          expect(character).toCorrectlyEncodeTo(encodedChar);
+          expect(character).toCorrectlyEncodeTo({
+            name: characterDefinition.names[0]
+          });
         });
 
         it("should correctly decode '" + character + "'", function() {
-          expect(chararcterDefinition).toCorrectlyDecodeTo(character);
+          expect(characterDefinition).toCorrectlyDecodeTo(character);
         });
 
-        it("should correctly encode character buried in text", function(){
-
-        });
       });
 
     });

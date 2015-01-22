@@ -3,6 +3,8 @@ define('hexadecimalDecodeCompare', ['codeCompareBase'], function(codeCompareBase
 
   return codeCompareBase.buildCompareObject({
     codePrefix: '&#',
-    codeName: 'hexadecimalCode'
+    codePostfix: ';',
+    codeName: 'hexadecimalCode',
+    translateFunctionName: 'decode'
   });
 });

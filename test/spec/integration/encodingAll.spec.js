@@ -17,15 +17,17 @@ define([
       });
 
 
-      htmlDefinitions.forEach(function(chararcterDefinition){
-        var character = String.fromCharCode(chararcterDefinition.decimalCode);
+      htmlDefinitions.forEach(function(characterDefinition){
+        var character = String.fromCharCode(characterDefinition.decimalCode);
 
         it("should correctly encode '" + character + "'", function() {
-          expect(character).toCorrectlyEncodeTo('&' + chararcterDefinition.names[0] + ';');
+          expect(character).toCorrectlyEncodeTo({
+            name: characterDefinition.names[0]
+          });
         });
 
         it("should correctly decode '" + character + "'", function() {
-          expect(chararcterDefinition).toCorrectlyDecodeTo(character);
+          expect(characterDefinition).toCorrectlyDecodeTo(character);
         });
       });
 

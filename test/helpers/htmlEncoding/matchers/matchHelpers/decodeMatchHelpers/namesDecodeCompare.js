@@ -34,7 +34,9 @@ define('namesDecodeCompare', ['codeCompareBase'], function(codeCompareBase) {
 
   baseCompareObject = codeCompareBase.buildCompareObject({
     codePrefix: '&',
-    codeName: 'name'
+    codePostfix: ';',
+    codeName: 'name',
+    translateFunctionName: 'decode'
   });
 
 

@@ -3,21 +3,21 @@ define('mixedTextCompareBase', ['mixedTextGenerator'], function(mixedTextGenerat
 
   function buildCompareInMixedText(mixedTextDefinition) {
     return function (given) {
-      var decoded, result,  mixedTextItem;
+      var translated, result,  mixedTextItem;
 
       mixedTextItem = {
-        code: mixedTextDefinition.codePrefix + given[mixedTextDefinition.codeName] + ';',
+        code: mixedTextDefinition.codePrefix + given[mixedTextDefinition.codeName] + mixedTextDefinition.codePostfix,
         expected: given.expectedCharacter
       };
 
       mixedTextItem = mixedTextGenerator.generateMixedText(mixedTextItem);
 
-      decoded = given.encoding.html.decode(mixedTextItem.code);
+      translated = given.encoding.html[mixedTextDefinition.translateFunctionName](mixedTextItem.code);
 
-      result = mixedTextDefinition.compareDecode({
+      result = mixedTextDefinition.compareTranslated({
         actual: mixedTextItem.code,
         expectedDefinition: mixedTextItem.expected,
-        translated: decoded
+        translated: translated
       });
 
       return result;

@@ -3,19 +3,23 @@ define('codeCompareBase', ['mixedTextCompareBase', 'singleCodeCompareBase'], fun
 
   function buildCompareObject(objectCompareDefinition) {
 
-    function buildCodeComparison(compareDecode) {
+    function buildCodeComparison(compareTranslated) {
       return singleCodeCompareBase.buildBaseCompare({
           codePrefix: objectCompareDefinition.codePrefix,
+          codePostfix: objectCompareDefinition.codePostfix,
           codeName: objectCompareDefinition.codeName,
-          compareDecode: compareDecode
+          compareTranslated: compareTranslated,
+          translateFunctionName: objectCompareDefinition.translateFunctionName
       });
     }
 
-    function buildCompareInMixedText(compareDecode) {
+    function buildCompareInMixedText(compareTranslated) {
       return mixedTextCompareBase.buildCompareInMixedTextFunction({
         codePrefix: objectCompareDefinition.codePrefix,
+        codePostfix: objectCompareDefinition.codePostfix,
         codeName: objectCompareDefinition.codeName,
-        compareDecode: compareDecode
+        compareTranslated: compareTranslated,
+        translateFunctionName: objectCompareDefinition.translateFunctionName
       });
     }
 
