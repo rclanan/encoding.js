@@ -15,6 +15,12 @@ define(['definitions/html/encodingUtilities/htmlEncodeBuilderUtilities'],
         addItem: function (definition){
           var namedPrefix;
 
+          htmlEncodeBuilderUtilities.addEncodeCode({
+            name: definition.name,
+            decimalCode: definition.decimalCode,
+            encodingObject: encodingBuilder.codes
+          });
+
           for(namedPrefix in encodingBuilder.namedPrefixes) {
             htmlEncodeBuilderUtilities.addDecodeCode({
               prefix: encodingBuilder.namedPrefixes[namedPrefix],
@@ -22,13 +28,6 @@ define(['definitions/html/encodingUtilities/htmlEncodeBuilderUtilities'],
               code: definition[namedPrefix],
               encodingObject: encodingBuilder.codes
             });
-
-            htmlEncodeBuilderUtilities.addEncodeCode({
-              name: definition.name,
-              decimalCode: definition.decimalCode,
-              encodingObject: encodingBuilder.codes
-            });
-
           }
         }
       };

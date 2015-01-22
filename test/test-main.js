@@ -11,7 +11,8 @@ requireConfig = {
   paths: {
     spec: '../test/spec',
     helpers: '../test/helpers',
-    squirePath: '../bower_components/squire/src'
+    squirePath: '../bower_components/squire/src',
+    mocks: '../test/mocks'
   },
 
   deps: tests,

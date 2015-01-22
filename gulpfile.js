@@ -1,4 +1,4 @@
-var del, gulp, rjs, gutil, clean, jshint, karma;
+var del, gulp, rjs, gutil, clean, jshint, karma, integrationTestLocations, unitTestLocations;
 
 gulp = require('gulp');
 gutil = require('gulp-util');
@@ -42,14 +42,35 @@ gulp.task('requirejs', function() {
   });
 });
 
+// define Karma tests:
+integrationTestLocations = ['test/spec/integration/*.js', 'src/_*.js'];
+
+unitTestLocations = ['test/spec/unit/*.js', 'src/_*.js'];
+
 gulp.task('karma', function(done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true,
+    exclude: integrationTestLocations
   }, done);
 });
 
 gulp.task('karma:all', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('karma:integration', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+    exclude:unitTestLocations
+  }, done);
+});
+
+gulp.task('karma:allBrowsers', function(done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true,
@@ -57,21 +78,43 @@ gulp.task('karma:all', function(done) {
   }, done);
 });
 
-gulp.task('karma:debug', function(done){
-
-
+gulp.task('karma:debugUnitTests', function(done){
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: false,
     browsers: ['Chrome'],
     flags: ['--debug'],
     preprocessors: {},
+    exclude: integrationTestLocations
   }, done);
 });
 
+gulp.task('karma:debugIntegrationTests', function(done){
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false,
+    browsers: ['Chrome'],
+    flags: ['--debug'],
+    preprocessors: {},
+    exclude: unitTestLocations
+  }, done);
+});
+
+gulp.task('karma:debugAll', function(done){
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false,
+    browsers: ['Chrome'],
+    flags: ['--debug'],
+    preprocessors: {}
+  }, done);
+});
+
+
 gulp.task('karma:watch', function(done) {
   karma.start({
-    configFile: __dirname + '/karma.conf.js'
+    configFile: __dirname + '/karma.conf.js',
+    exclude: integrationTestLocations
   }, done);
 });
 

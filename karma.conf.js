@@ -9,6 +9,7 @@ module.exports = function(config) {
     files: [
       { pattern: 'src/**/*.js', included: false },
       { pattern: 'test/spec/**/*.js', included: false },
+      { pattern: 'test/mocks/**/*.js', included: true},
       { pattern: 'test/helpers/**/*.js', included: true},
       { pattern: 'bower_components/squire/src/Squire.js', included: false},
       'test/test-main.js'

@@ -1,7 +1,9 @@
-define(['definitions/html/htmlCodeMap'], function(htmlCodeMap) {
+define(['definitions/html/htmlCodeMap', 'definitions/html/htmlDefinitions'], function(htmlCodeMapBuilder, htmlDefinitions) {
   'use strict';
 
-  var encodeRegEx, decodeRegEx, createRegExString, generateRegEx, encode, decode, escapeSpecialCharacters, specialCharacterRegex;
+  var encodeRegEx, decodeRegEx, createRegExString, generateRegEx, encode, decode, escapeSpecialCharacters, specialCharacterRegex, htmlCodeMap;
+
+  htmlCodeMap = htmlCodeMapBuilder.buildCodeMap(htmlDefinitions);
 
   specialCharacterRegex = /[\\\^\$\.\|\?\*\+\(\)\[\]\{\}]/g;
 

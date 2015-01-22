@@ -1,24 +1,32 @@
-define(['definitions/html/htmlDefinitions', 'definitions/html/encodingUtilities/encodeBuilderFactory'], function (htmlDefinitions, encodeBuilderFactory) {
-  'use strict';
+define([
+  'definitions/html/htmlDefinitions',
+  'definitions/html/encodingUtilities/encodeBuilderFactory'
+  ], function (htmlDefinitions, encodeBuilderFactory) {
+    'use strict';
 
-  var encodeObject, encodePrefixes;
+    function buildCodeMap(htmlDefinitions) {
+      var encodeObject, encodePrefixes;
 
-  encodePrefixes = {
-    decimalCode: '&#',
-    hexadecimalCode: '&#',
-    names: '&'
-  };
+      encodePrefixes = {
+        decimalCode: '&#',
+        hexadecimalCode: '&#',
+        names: '&'
+      };
 
-  encodeObject = encodeBuilderFactory.buildEncodeBuilder(encodePrefixes);
+      encodeObject = encodeBuilderFactory.buildEncodeBuilder(encodePrefixes);
 
-  htmlDefinitions.forEach(function(definition) {
-    encodeObject.addItem({
-      name: definition.names[0],
-      decimalCode: definition.decimalCode,
-      names: definition.names,
-      hexadecimalCode: definition.hexadecimalCode
-    });
-  });
+      htmlDefinitions.forEach(function(definition) {
+        encodeObject.addItem({
+          name: definition.names[0],
+          decimalCode: definition.decimalCode,
+          names: definition.names,
+          hexadecimalCode: definition.hexadecimalCode
+        });
+      });
 
-  return encodeObject.codes;
+      return encodeObject.codes;
+    }
+
+
+    return { buildCodeMap: buildCodeMap};
 });
