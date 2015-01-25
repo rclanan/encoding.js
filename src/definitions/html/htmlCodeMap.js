@@ -1,32 +1,33 @@
-define([
-  'definitions/html/htmlDefinitions',
-  'definitions/html/encodingUtilities/encodeBuilderFactory'
-  ], function (htmlDefinitions, encodeBuilderFactory) {
-    'use strict';
+'use strict';
 
-    function buildCodeMap(htmlDefinitions) {
-      var encodeObject, encodePrefixes;
+var htmlDefinitions, encodeBuilderFactory;
 
-      encodePrefixes = {
-        decimalCode: '&#',
-        hexadecimalCode: '&#',
-        names: '&'
-      };
+htmlDefinitions = require('./definitions/html/htmlDefinitions');
+encodeBuilderFactory = require('.definitions/html/encodingUtilities/encodeBuilderFactory');
 
-      encodeObject = encodeBuilderFactory.buildEncodeBuilder(encodePrefixes);
+function buildCodeMap(htmlDefinitions) {
+  var encodeObject, encodePrefixes;
 
-      htmlDefinitions.forEach(function(definition) {
-        encodeObject.addItem({
-          name: definition.names[0],
-          decimalCode: definition.decimalCode,
-          names: definition.names,
-          hexadecimalCode: definition.hexadecimalCode
-        });
-      });
+  encodePrefixes = {
+    decimalCode: '&#',
+    hexadecimalCode: '&#',
+    names: '&'
+  };
 
-      return encodeObject.codes;
-    }
+  encodeObject = encodeBuilderFactory.buildEncodeBuilder(encodePrefixes);
 
+  htmlDefinitions.forEach(function(definition) {
+    encodeObject.addItem({
+      name: definition.names[0],
+      decimalCode: definition.decimalCode,
+      names: definition.names,
+      hexadecimalCode: definition.hexadecimalCode
+    });
+  });
 
-    return { buildCodeMap: buildCodeMap};
-});
+  return encodeObject.codes;
+}
+
+module.exports =  {
+  buildCodeMap: buildCodeMap
+};

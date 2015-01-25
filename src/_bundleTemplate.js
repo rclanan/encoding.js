@@ -10,3 +10,6 @@
     window.encoding = factory();
   }
 }(this, function() {
+  <%= contents %>
+  return require('./encoding');
+}));

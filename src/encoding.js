@@ -1,11 +1,11 @@
-define([
-  'definitions/html/htmlEncoder',
-  'definitions/uriEncoder'
-], function (htmlEncoder, uriEncoder) {
-  'use strict';
+'use strict';
 
-  return {
-    html: htmlEncoder,
-    uri: uriEncoder
-  };
-});
+var htmlEncoder, uriEncoder;
+
+htmlEncoder = require('./definitions/html/htmlEncoder');
+uriEncoder = require('./definitions/uriEncoder');
+
+module.exports = {
+  html: htmlEncoder,
+  uri: uriEncoder
+};

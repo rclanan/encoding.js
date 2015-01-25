@@ -1,28 +1,26 @@
-define([], function() {
-  'use strict';
+'use strict';
 
-  var encode, decode, encodeComponent, decodeComponent;
+var encode, decode, encodeComponent, decodeComponent;
 
-  encode = function(uri) {
-    return encodeURI(uri);
-  };
+encode = function(uri) {
+  return encodeURI(uri);
+};
 
-  decode = function(encodedUri) {
-    return decodeURI(encodedUri);
-  };
+decode = function(encodedUri) {
+  return decodeURI(encodedUri);
+};
 
-  encodeComponent = function(uriComponent) {
-    return encodeURIComponent(uriComponent);
-  };
+encodeComponent = function(uriComponent) {
+  return encodeURIComponent(uriComponent);
+};
 
-  decodeComponent = function(encodedUriComponent) {
-    return decodeURIComponent(encodedUriComponent);
-  };
+decodeComponent = function(encodedUriComponent) {
+  return decodeURIComponent(encodedUriComponent);
+};
 
-  return {
-    encode: encode,
-    decode: decode,
-    encodeComponent: encodeComponent,
-    decodeComponent: decodeComponent
-  };
-});
+module.exports = {
+  encode: encode,
+  decode: decode,
+  encodeComponent: encodeComponent,
+  decodeComponent: decodeComponent
+};

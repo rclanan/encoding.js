@@ -1,32 +1,30 @@
-define([], function(){
-  'use strict';
+'use strict';
 
-  function buildNewArgumentObject(objectDefiniton) {
-    var item, newArgumentObject;
-    newArgumentObject = {};
+function buildNewArgumentObject(objectDefiniton) {
+  var item, newArgumentObject;
+  newArgumentObject = {};
 
-    for(item in objectDefiniton.argumentObject) {
-      if(objectDefiniton.argumentObject.hasOwnProperty(item)) {
-        newArgumentObject[item] = (item === objectDefiniton.arrayItemName) ? objectDefiniton.singleItem : objectDefiniton.argumentObject[item];
-      }
+  for(item in objectDefiniton.argumentObject) {
+    if(objectDefiniton.argumentObject.hasOwnProperty(item)) {
+      newArgumentObject[item] = (item === objectDefiniton.arrayItemName) ? objectDefiniton.singleItem : objectDefiniton.argumentObject[item];
     }
-
-    return newArgumentObject;
   }
 
-  function callFunctionWithArrayItem(callDefinition) {
+  return newArgumentObject;
+}
 
-    var newArgumentObject = buildNewArgumentObject({
-      argumentObject: callDefinition.argumentObject,
-      arrayItemName: callDefinition.arrayItemName,
-      singleItem: callDefinition.singleItem
-    });
+function callFunctionWithArrayItem(callDefinition) {
 
-    callDefinition.delegateFunction(newArgumentObject);
-  }
+  var newArgumentObject = buildNewArgumentObject({
+    argumentObject: callDefinition.argumentObject,
+    arrayItemName: callDefinition.arrayItemName,
+    singleItem: callDefinition.singleItem
+  });
 
-  return {
-    buildNewArgumentObject: buildNewArgumentObject,
-    callFunctionWithArrayItem: callFunctionWithArrayItem
-  };
-});
+  callDefinition.delegateFunction(newArgumentObject);
+}
+
+module.exports =  {
+  buildNewArgumentObject: buildNewArgumentObject,
+  callFunctionWithArrayItem: callFunctionWithArrayItem
+};

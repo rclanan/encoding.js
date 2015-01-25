@@ -1,14 +1,12 @@
-define([], function() {
-  'use strict';
+'use strict';
 
-  function addEncodeCode(encodeDefinition){
-    var char =  String.fromCharCode(encodeDefinition.decimalCode);
+function addEncodeCode(encodeDefinition){
+  var char =  String.fromCharCode(encodeDefinition.decimalCode);
 
-    encodeDefinition.encodingObject.characters.push(char);
-    encodeDefinition.encodingObject.encodeMap[char] = '&' + encodeDefinition.name + ';';
-  }
+  encodeDefinition.encodingObject.characters.push(char);
+  encodeDefinition.encodingObject.encodeMap[char] = '&' + encodeDefinition.name + ';';
+}
 
-  return {
-    addEncodeCode: addEncodeCode
-  };
-});
+module.exports = {
+  addEncodeCode: addEncodeCode
+};

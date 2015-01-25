@@ -1,66 +1,32 @@
-define(['definitions/html/htmlCodeMap', 'definitions/html/htmlDefinitions'], function(htmlCodeMapBuilder, htmlDefinitions) {
-  'use strict';
+'use strict';
 
-  var encodeRegEx, decodeRegEx, createRegExString, generateRegEx, encode, decode, escapeSpecialCharacters, specialCharacterRegex, htmlCodeMap;
+var htmlCodeMapBuilder, htmlDefinitions, encodeRegEx, decodeRegEx, encode, decode, htmlCodeMap, regexUtilites;
 
-  htmlCodeMap = htmlCodeMapBuilder.buildCodeMap(htmlDefinitions);
+htmlCodeMapBuilder = require('./definitions/html/htmlCodeMap');
+htmlDefinitions = require('./definitions/html/htmlDefinitions');
+regexUtilites = require('./definitions/html/regexUtilites');
 
-  specialCharacterRegex = /[\\\^\$\.\|\?\*\+\(\)\[\]\{\}]/g;
+htmlCodeMap = htmlCodeMapBuilder.buildCodeMap(htmlDefinitions);
 
-  escapeSpecialCharacters = function(stringArray) {
-    stringArray.forEach(function(character, index) {
-      if(character.match(specialCharacterRegex)) {
-        stringArray[index] = '\\' + character;
-      }
-    });
+encode = function(string) {
+  return String(string).replace(encodeRegEx, function(s) {
+    return htmlCodeMap.encodeMap[s];
+  });
+};
 
-    return stringArray;
-  };
+decode = function(string) {
+  return String(string).replace(decodeRegEx, function(s) {
+    return htmlCodeMap.decodeMap[s];
+  });
+};
 
-  createRegExString = function(stringArray) {
-    var regExString, onlySingleCharacters, rawStringJoin;
-    onlySingleCharacters = stringArray.every(function(item) {
-      return item.length === 1;
-    });
+// generate a regex that matches on the characters we want to encode
+encodeRegEx = regexUtilites.generateRegEx(htmlCodeMap.characters);
 
-    stringArray = escapeSpecialCharacters(stringArray);
+// generate a regex that matches the characters we want to decode.
+decodeRegEx = regexUtilites.generateRegEx(htmlCodeMap.encodings);
 
-    if (onlySingleCharacters) {
-      rawStringJoin = stringArray.join('');
-
-      regExString = '[' + stringArray.join('') + ']';
-
-    } else {
-      regExString = '(' + stringArray.join('|') + ')';
-    }
-    return regExString;
-  };
-
-  generateRegEx = function(stringArray) {
-    var regExString = createRegExString(stringArray);
-    return new RegExp(regExString, 'g');
-  };
-
-  encode = function(string) {
-    return String(string).replace(encodeRegEx, function(s) {
-      return htmlCodeMap.encodeMap[s];
-    });
-  };
-
-  decode = function(string) {
-    return String(string).replace(decodeRegEx, function(s) {
-      return htmlCodeMap.decodeMap[s];
-    });
-  };
-
-  // generate a regex that matches on the characters we want to encode
-  encodeRegEx = generateRegEx(htmlCodeMap.characters);
-
-  // generate a regex that matches the characters we want to decode.
-  decodeRegEx = generateRegEx(htmlCodeMap.encodings);
-
-  return {
-    encode: encode,
-    decode: decode
-  };
-});
+return {
+  encode: encode,
+  decode: decode
+};

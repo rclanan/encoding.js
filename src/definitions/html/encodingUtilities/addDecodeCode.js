@@ -1,30 +1,29 @@
-define(['definitions/html/encodingUtilities/functionArrayUtilities'], function(functionArrayUtilities) {
-  'use strict';
+'use strict';
 
-  function addSingleDecodeCode(decodeDefinition) {
-    var encodedValue;
+var functionArrayUtilities = require('./definitions/html/encodingUtilities/functionArrayUtilities');
 
-      encodedValue = decodeDefinition.prefix + decodeDefinition.code + ';';
+function addSingleDecodeCode(decodeDefinition) {
+  var encodedValue;
 
-      decodeDefinition.encodingObject.encodings.push(encodedValue);
-      decodeDefinition.encodingObject.decodeMap[encodedValue] = String.fromCharCode(decodeDefinition.decimalCode);
+    encodedValue = decodeDefinition.prefix + decodeDefinition.code + ';';
+
+    decodeDefinition.encodingObject.encodings.push(encodedValue);
+    decodeDefinition.encodingObject.decodeMap[encodedValue] = String.fromCharCode(decodeDefinition.decimalCode);
+}
+
+function addDecodeCode(decodeDefinition) {
+  if(Array.isArray(decodeDefinition.code)) {
+    functionArrayUtilities.callForAllInDefinedArray({
+      arrayItemName: 'code',
+      argumentObject: decodeDefinition,
+      delegateFunction: addSingleDecodeCode
+    });
+  } else {
+    addSingleDecodeCode(decodeDefinition);
   }
+}
 
-  function addDecodeCode(decodeDefinition) {
-    if(Array.isArray(decodeDefinition.code)) {
-      functionArrayUtilities.callForAllInDefinedArray({
-        arrayItemName: 'code',
-        argumentObject: decodeDefinition,
-        delegateFunction: addSingleDecodeCode
-      });
-    } else {
-      addSingleDecodeCode(decodeDefinition);
-    }
-  }
-
-  return {
-    addDecodeCode: addDecodeCode,
-    addSingleDecodeCode: addSingleDecodeCode
-  };
-
-});
+module.exports = {
+  addDecodeCode: addDecodeCode,
+  addSingleDecodeCode: addSingleDecodeCode
+};

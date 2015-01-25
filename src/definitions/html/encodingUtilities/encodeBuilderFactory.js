@@ -1,41 +1,41 @@
-define(['definitions/html/encodingUtilities/htmlEncodeBuilderUtilities'],
-  function(htmlEncodeBuilderUtilities){
-    'use strict';
+'use strict';
 
-    function encodeBuilderFactory(namedPrefixes) {
-      var encodingBuilder;
-      encodingBuilder = {
-        namedPrefixes: namedPrefixes,
-        codes: {
-          encodings: [],
-          characters: [],
-          decodeMap: {},
-          encodeMap: {}
-        },
-        addItem: function (definition){
-          var namedPrefix;
+var htmlEncodeBuilderUtilities = require('./definitions/html/encodingUtilities/htmlEncodeBuilderUtilities');
 
-          htmlEncodeBuilderUtilities.addEncodeCode({
-            name: definition.name,
-            decimalCode: definition.decimalCode,
-            encodingObject: encodingBuilder.codes
-          });
+function encodeBuilderFactory(namedPrefixes) {
+  var encodingBuilder;
 
-          for(namedPrefix in encodingBuilder.namedPrefixes) {
-            htmlEncodeBuilderUtilities.addDecodeCode({
-              prefix: encodingBuilder.namedPrefixes[namedPrefix],
-              decimalCode: definition.decimalCode,
-              code: definition[namedPrefix],
-              encodingObject: encodingBuilder.codes
-            });
-          }
-        }
-      };
+  encodingBuilder = {
+    namedPrefixes: namedPrefixes,
+    codes: {
+      encodings: [],
+      characters: [],
+      decodeMap: {},
+      encodeMap: {}
+    },
+    addItem: function (definition){
+      var namedPrefix;
 
-      return encodingBuilder;
+      htmlEncodeBuilderUtilities.addEncodeCode({
+        name: definition.name,
+        decimalCode: definition.decimalCode,
+        encodingObject: encodingBuilder.codes
+      });
+
+      for(namedPrefix in encodingBuilder.namedPrefixes) {
+        htmlEncodeBuilderUtilities.addDecodeCode({
+          prefix: encodingBuilder.namedPrefixes[namedPrefix],
+          decimalCode: definition.decimalCode,
+          code: definition[namedPrefix],
+          encodingObject: encodingBuilder.codes
+        });
+      }
     }
+  };
 
-    return {
-      buildEncodeBuilder: encodeBuilderFactory
-    };
-});
+  return encodingBuilder;
+}
+
+module.exports = {
+  buildEncodeBuilder: encodeBuilderFactory
+};

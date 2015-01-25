@@ -1,21 +1,20 @@
-define(['definitions/html/encodingUtilities/arrayCallUtilities'], function(arrayCallUtilities){
-  'use strict';
+'use strict';
 
-  function callForAllInDefinedArray(functionDefinition) {
+var arrayCallUtilities = require('./definitions/html/encodingUtilities/arrayCallUtilities');
 
-    functionDefinition.argumentObject[functionDefinition.arrayItemName].forEach(function(singleItem) {
-      arrayCallUtilities.callFunctionWithArrayItem({
-        argumentObject: functionDefinition.argumentObject,
-        arrayItemName: functionDefinition.arrayItemName,
-        singleItem: singleItem,
-        delegateFunction: functionDefinition.delegateFunction
-      });
+function callForAllInDefinedArray(functionDefinition) {
 
+  functionDefinition.argumentObject[functionDefinition.arrayItemName].forEach(function(singleItem) {
+    arrayCallUtilities.callFunctionWithArrayItem({
+      argumentObject: functionDefinition.argumentObject,
+      arrayItemName: functionDefinition.arrayItemName,
+      singleItem: singleItem,
+      delegateFunction: functionDefinition.delegateFunction
     });
-  }
 
-  return {
-    callForAllInDefinedArray: callForAllInDefinedArray
-  };
+  });
+}
 
-});
+module.exports = {
+  callForAllInDefinedArray: callForAllInDefinedArray
+};

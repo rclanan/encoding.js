@@ -1,11 +1,11 @@
-define([
-  'definitions/html/encodingUtilities/addEncodeCode',
-  'definitions/html/encodingUtilities/addDecodeCode'  
-  ], function(addEncodeCode, addDecodeCode) {
-  'use strict';
+'use strict';
 
-  return {
-    addDecodeCode: addDecodeCode.addDecodeCode,
-    addEncodeCode: addEncodeCode.addEncodeCode
-  };
-});
+var addEncodeCode, addDecodeCode;
+
+addEncodeCode = require('./definitions/html/encodingUtilities/addEncodeCode');
+addDecodeCode = require('./definitions/html/encodingUtilities/addDecodeCode');
+
+module.exports = {
+  addDecodeCode: addDecodeCode.addDecodeCode,
+  addEncodeCode: addEncodeCode.addEncodeCode
+};
