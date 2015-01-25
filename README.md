@@ -40,3 +40,21 @@ var decodedFullUri = encoding.uri.decode(encodedFullUri);
 var encodedUriComponent = encoding.uri.encodeComponent('this &component %will will! .be encoded!@#$%^&*');
 var decodedUriComponent = encoding.uri.decodeComponent(encodedUriComponent);
 ```
+### Tests
+
+Simply run:
+
+```
+gulp karma
+```
+
+### Contributing
+
+If you have any suggestions, or found a bug please open a GitHub issue and we will
+get to it as soon as we can.
+
+### License
+
+constants.js is distributed under the terms of the MIT license.
+
+See LICENSE for details.
