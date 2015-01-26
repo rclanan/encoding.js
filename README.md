@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/rclanan/encoding.js.png?label=ready&title=Ready)](https://waffle.io/rclanan/encoding.js)
 # encoding.js
 
 This library is meant to be used with [Require.js](http://requirejs.org) for browser based encoding, should be simple to use.
