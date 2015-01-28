@@ -10,6 +10,13 @@
     window.encoding = factory();
   }
 }(this, function() {
-  <%= contents %>
-  return require('./encoding');
+  var require, itemToExport;
+
+  // this is the what is defined in browserify's "entry" item in the configBundles array.
+  // located in gulp/config.js under "browserify"
+  itemToExport = 1;
+
+  require = <%= contents %>;
+
+  return require(itemToExport);
 }));

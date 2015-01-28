@@ -8,7 +8,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       { pattern: 'src/**/*.js', included: false },
-      { pattern: 'test/spec/**/*.js', included: false },
+    { pattern: 'test/spec/**/*.js', included: true },
       { pattern: 'test/mocks/**/*.js', included: true},
       { pattern: 'test/helpers/**/*.js', included: true},
       { pattern: 'bower_components/squire/src/Squire.js', included: false},
@@ -23,12 +23,13 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['coverage']
+      'src/**/*.js': ['browserify', 'coverage'],
+      'test/spec/**/*.js': ['browserify']
     },
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['browserify', 'jasmine'],
 
     // Enable or disable watching files and executing the tests
     // whenever one of these files changes.
