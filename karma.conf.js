@@ -23,7 +23,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['browserify', 'coverage'],
+      'src/**/*.js': ['browserify'],
       'test/spec/**/*.js': ['browserify']
     },
 
@@ -48,7 +48,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['coverage','progress'],
+    reporters: ['progress','coverage'],
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -58,6 +58,11 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
+
+    browserify: {
+      debug: true,
+      transform: ['browserify-istanbul']
+    },
 
     coverageReporter: {
       reporters: [
